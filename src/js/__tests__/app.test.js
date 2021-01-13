@@ -19,6 +19,50 @@ test('method add(), error, several identical objects', () => {
   expect(anotherDaemon).toThrowError(new Error('This character is in the team already'));
 });
 
+test('method add(), error, tested by name', () => {
+  const received = new Team();
+  received.add({
+    attack: 10,
+    defence: 40,
+    health: 100,
+    level: 1,
+    name: 'Мерлин',
+    type: 'Magician',
+  });
+  function anotherWizard() {
+    received.add({
+      attack: 10,
+      defence: 40,
+      health: 100,
+      level: 1,
+      name: 'Мерлин',
+      type: 'Magician',
+    });
+  }
+  expect(anotherWizard).toThrow();
+});
+
+test('method add(), tested by name', () => {
+  const received = new Team();
+  received.add({
+    attack: 10,
+    defence: 40,
+    health: 100,
+    level: 1,
+    name: 'Merlin',
+    type: 'Magician',
+  });
+  received.add({
+    attack: 10,
+    defence: 40,
+    health: 100,
+    level: 1,
+    name: 'Мерлин',
+    type: 'Magician',
+  });
+  expect(received.members.size).toBe(2);
+});
+
 test('method addAll(), default', () => {
   const bowman = new Character('Hawkeye', 'Bowman');
   const daemon = new Character('Dormammu', 'Daemon');

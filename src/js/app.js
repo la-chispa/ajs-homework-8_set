@@ -4,8 +4,10 @@ export default class Team {
   }
 
   add(character) {
-    if (this.members.has(character)) {
-      throw new Error('This character is in the team already');
+    for (const member of this.members) {
+      if (member.name === character.name) {
+        throw new Error('This character is in the team already');
+      }
     }
     this.members.add(character);
   }
